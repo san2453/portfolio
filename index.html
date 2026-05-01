@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sanaka Banerjee | Engineering Portfolio</title>
+  <style>
+    :root {
+      --bg: #fbf7f1;
+      --card: #ffffff;
+      --ink: #1f2933;
+      --muted: #5f6c7b;
+      --accent: #b85c38;
+      --accent-dark: #7a3b25;
+      --line: #e7ded3;
+      --chip: #f4e7dc;
+      --shadow: 0 18px 45px rgba(31, 41, 51, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    a { color: var(--accent-dark); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 0;
+      background: var(--ink);
+      color: white;
+      padding: 0.5rem 1rem;
+      z-index: 999;
+    }
+    .skip-link:focus { left: 1rem; top: 1rem; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(251, 247, 241, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    nav {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0.9rem 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      font-size: 0.94rem;
+    }
+
+    .nav-links a {
+      color: var(--ink);
+      font-weight: 650;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.2rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 2rem;
+      align-items: center;
+      padding: 5rem 0 3.5rem;
+    }
+
+    .eyebrow {
+      color: var(--accent-dark);
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.13em;
+      margin-bottom: 0.65rem;
+    }
+
+    h1, h2, h3 {
+      line-height: 1.12;
+      margin: 0 0 1rem;
+      letter-spacing: -0.035em;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 7vw, 5.2rem);
+      max-width: 920px;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      margin-top: 0.25rem;
+    }
+
+    h3 { font-size: 1.35rem; }
+
+    .lead {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 740px;
+      margin-bottom: 1.3rem;
+    }
+
+    .hero-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card img, .project-image {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: #efe7dc;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 1.4rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 0.78rem 1.1rem;
+      font-weight: 800;
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: white;
+    }
+
+    .button.secondary {
+      background: transparent;
+      color: var(--accent-dark);
+    }
+
+    section {
+      padding: 3.4rem 0;
+      scroll-margin-top: 5rem;
+    }
+
+    .section-intro {
+      max-width: 760px;
+      color: var(--muted);
+      margin-bottom: 1.8rem;
+    }
+
+    .skills-grid, .experience-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .skill-card, .experience-card, .project-card, .memo-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 1.2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .skill-card h3 { margin-bottom: 0.4rem; }
+    .skill-card p, .experience-card p, .project-card p, .memo-card p { color: var(--muted); margin: 0.45rem 0; }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.8rem;
+    }
+
+    .chip {
+      background: var(--chip);
+      color: var(--accent-dark);
+      border-radius: 999px;
+      padding: 0.32rem 0.62rem;
+      font-size: 0.83rem;
+      font-weight: 750;
+    }
+
+    .project-card {
+      margin-bottom: 1.4rem;
+      display: grid;
+      grid-template-columns: 0.9fr 1.45fr;
+      gap: 1.25rem;
+      align-items: start;
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .label {
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-dark);
+    }
+
+    .project-block {
+      border-top: 1px solid var(--line);
+      padding-top: 0.75rem;
+      margin-top: 0.75rem;
+    }
+
+    .project-block strong { color: var(--ink); }
+
+    .resume-frame {
+      background: var(--card);
+      border: 1px dashed var(--accent);
+      border-radius: 24px;
+      padding: 1.4rem;
+      color: var(--muted);
+    }
+
+    .resume-list {
+      columns: 2;
+      margin-top: 0.5rem;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 2rem 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 850px) {
+      .hero, .project-card { grid-template-columns: 1fr; }
+      .skills-grid, .experience-grid { grid-template-columns: 1fr; }
+      .resume-list { columns: 1; }
+      nav { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header>
+    <nav aria-label="Main navigation">
+      <a class="brand" href="#top">Sanaka Banerjee</a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#resume">Resume</a>
+        <a href="#memo">Memo</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="container">
+    <section class="hero" id="top">
+      <div>
+        <p class="eyebrow">AI · Robotics · Mechanical Systems</p>
+        <h1>I build intelligent systems that connect physical engineering with practical AI.</h1>
+        <p class="lead">I am an AI engineer with a mechanical engineering foundation, focused on computer vision, robotics, edge intelligence, and machine learning for real-world systems. My work sits at the point where sensors, models, hardware, and human needs meet.</p>
+        <div class="button-row">
+          <a class="button" href="#projects">View featured projects</a>
+          <a class="button secondary" href="Sanaka_Banerjee_Resume.pdf" target="_blank" rel="noopener">Download resume</a>
+        </div>
+      </div>
+      <aside class="hero-card" aria-label="Portfolio summary card">
+        <img src="images/profile.jpg" alt="Portrait of Sanaka Banerjee" />
+        <p><strong>Current focus:</strong> compressing vision-language models for on-device robotic reasoning.</p>
+        <p><strong>Favorite engineering problem:</strong> making advanced AI useful when compute, cost, and connectivity are limited.</p>
+      </aside>
+    </section>
+
+    <section id="about">
+      <p class="eyebrow">About me</p>
+      <h2>From mechanical design to machine intelligence</h2>
+      <p class="section-intro">My first engineering interests were physical: mechanisms, robots, motors, and the small thrill of opening a device just to understand how it worked. Over time, robotics taught me that good hardware is only half of an intelligent system. Algorithms turn sensing into perception, prediction, and action. That realization led me from mechanical engineering into artificial intelligence, where I now work on systems that can understand data from the physical world and make useful decisions.</p>
+      <p class="section-intro">I enjoy projects with practical constraints: limited compute, low-cost hardware, noisy real-world data, and users who need the system to work outside a controlled lab. The projects below show that focus through edge AI, computer vision, additive manufacturing, and applied machine learning.</p>
+    </section>
+
+    <section id="skills">
+      <p class="eyebrow">Skills employers can skim quickly</p>
+      <h2>Core engineering strengths</h2>
+      <div class="skills-grid">
+        <article class="skill-card">
+          <h3>AI and machine learning</h3>
+          <p>Model training, distillation, evaluation, supervised learning, transformers, computer vision, defect detection, and predictive modeling.</p>
+          <div class="chips"><span class="chip">PyTorch</span><span class="chip">YOLOv3</span><span class="chip">Transformers</span><span class="chip">OpenCV</span></div>
+        </article>
+        <article class="skill-card">
+          <h3>Robotics and edge systems</h3>
+          <p>Hardware-software integration, microcontrollers, sensors, camera systems, low-cost embedded design, and robotic reasoning workflows.</p>
+          <div class="chips"><span class="chip">ESP32-CAM</span><span class="chip">Arduino</span><span class="chip">Edge AI</span><span class="chip">System integration</span></div>
+        </article>
+        <article class="skill-card">
+          <h3>Mechanical and manufacturing insight</h3>
+          <p>Mechanical systems thinking, additive manufacturing, process optimization, material density prediction, and quality control applications.</p>
+          <div class="chips"><span class="chip">WAAM</span><span class="chip">PBF</span><span class="chip">Feature engineering</span><span class="chip">Data analysis</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects">
+      <p class="eyebrow">Featured projects</p>
+      <h2>Four project descriptions for evaluation</h2>
+      <p class="section-intro">Each project is written in an IMRD-style structure: motivation and objective, method, results or evaluation, and my specific contribution.</p>
+
+      <article class="project-card" id="project-qwen">
+        <div>
+          <img class="project-image" src="images/qwen-robotics.jpg" alt="Diagram of a robot using an on-device vision-language model" />
+          <div class="chips"><span class="chip">Vision-language models</span><span class="chip">Model compression</span><span class="chip">Robotics</span></div>
+        </div>
+        <div>
+          <div class="project-meta"><span class="label">Project 1</span><span class="label">Edge AI for robotics</span></div>
+          <h3>Task-specific distillation of Qwen3.5-VL for on-device robotic reasoning</h3>
+          <p><strong>Introduction and objective.</strong> Robots used in search and rescue, assistive robotics, and field environments cannot always rely on cloud connectivity. This project addresses that limitation by reducing the size of a vision-language model while preserving the reasoning skills needed for natural-language robotic tasks.</p>
+          <p class="project-block"><strong>Method.</strong> I developed a task-specific distillation pipeline for Qwen3.5-VL. The model is progressively compressed through architectural pruning and then evaluated on robotic reasoning dimensions such as spatial grounding, affordance understanding, and action planning.</p>
+          <p class="project-block"><strong>Results and evaluation.</strong> The evaluation framework identifies where capability begins to degrade as model size decreases. This makes it possible to choose a smaller model that still supports reliable on-device reasoning instead of depending on cloud APIs.</p>
+          <p class="project-block"><strong>My contribution.</strong> I designed the compression strategy, implemented the training and evaluation pipeline, and analyzed failures across grounding, commonsense, and planning tasks.</p>
+        </div>
+      </article>
+
+      <article class="project-card" id="project-esp32">
+        <div>
+          <img class="project-image" src="images/esp32-object-detector.jpg" alt="ESP32-CAM based object detection prototype" />
+          <div class="chips"><span class="chip">YOLOv3</span><span class="chip">ESP32-CAM</span><span class="chip">Affordable AI</span></div>
+        </div>
+        <div>
+          <div class="project-meta"><span class="label">Project 2</span><span class="label">Computer vision system</span></div>
+          <h3>Low-cost smart object detector for misplaced items</h3>
+          <p><strong>Introduction and objective.</strong> In cost-sensitive markets, useful smart systems must balance performance with affordability. This project helps users locate misplaced objects in cluttered environments using a low-cost camera module and a custom object detection model.</p>
+          <p class="project-block"><strong>Method.</strong> We used the ESP32-CAM as an inexpensive visual sensor and moved the computationally intensive inference step to a connected laptop. I trained a customized YOLOv3 model on images of commonly lost objects and integrated the camera stream with the detection pipeline. A buzzer provided immediate feedback when the target object was detected.</p>
+          <p class="project-block"><strong>Results and evaluation.</strong> The system showed that practical object detection can be built without expensive embedded processors by distributing sensing and computation intelligently. It created a simple interaction loop: scan, detect, and alert.</p>
+          <p class="project-block"><strong>My contribution.</strong> I created the dataset, trained the model, and integrated the ESP32-CAM stream with the laptop-based inference and alert system.</p>
+        </div>
+      </article>
+
+      <article class="project-card" id="project-waam">
+        <div>
+          <img class="project-image" src="images/waam-porosity.jpg" alt="Additive manufacturing bead with defect detection overlay" />
+          <div class="chips"><span class="chip">Additive manufacturing</span><span class="chip">Defect detection</span><span class="chip">ML pipeline</span></div>
+        </div>
+        <div>
+          <div class="project-meta"><span class="label">Project 3</span><span class="label">Manufacturing AI</span></div>
+          <h3>Porosity detection in wire arc additive manufacturing</h3>
+          <p><strong>Introduction and objective.</strong> Porosity in wire arc additive manufacturing can reduce part strength and reliability, especially in high-stakes industries such as aerospace and heavy manufacturing. This project explores machine learning as a faster and more scalable alternative to expensive post-process inspection.</p>
+          <p class="project-block"><strong>Method.</strong> We developed a learning pipeline to identify porosity signatures from WAAM process data and visual inputs. The workflow included data cleaning, feature extraction, model training, and defect classification or prediction.</p>
+          <p class="project-block"><strong>Results and evaluation.</strong> The system demonstrated promising ability to identify defect-prone regions, showing how data-driven inspection could support real-time or near-real-time quality control in additive manufacturing.</p>
+          <p class="project-block"><strong>My contribution.</strong> I focused on preprocessing the collected data, extracting useful features, and developing the machine learning pipeline for porosity prediction.</p>
+        </div>
+      </article>
+
+      <article class="project-card" id="project-isro">
+        <div>
+          <img class="project-image" src="images/isro-density-app.jpg" alt="Machine learning dashboard for material density prediction" />
+          <div class="chips"><span class="chip">ISRO</span><span class="chip">Process optimization</span><span class="chip">Research publication</span></div>
+        </div>
+        <div>
+          <div class="project-meta"><span class="label">Project 4</span><span class="label">Applied ML research</span></div>
+          <h3>Machine-learning app for multi-material density prediction in additive manufacturing</h3>
+          <p><strong>Introduction and objective.</strong> Space-grade additive manufacturing requires highly dense parts, but experimental process optimization is expensive and wastes material. This project used machine learning to predict alloy density from process parameters and help identify settings that support high densification.</p>
+          <p class="project-block"><strong>Method.</strong> Working under ISRO guidance, I built predictive models for powder-bed fusion density estimation and packaged the model into a user-facing app so scientists could use the prediction workflow without running machine learning scripts manually.</p>
+          <p class="project-block"><strong>Results and evaluation.</strong> The app predicted material density with high accuracy and supported process-parameter optimization toward 99% densification. The work reduced dependence on repeated physical trials and contributed to a first-author publication on multi-material density prediction.</p>
+          <p class="project-block"><strong>My contribution.</strong> I developed the model, built the app interface, evaluated prediction performance, and contributed to the research paper as first author.</p>
+        </div>
+      </article>
+    </section>
+
+    <section id="experience">
+      <p class="eyebrow">Additional experiences</p>
+      <h2>Two short cards to satisfy the six-experience portfolio requirement</h2>
+      <div class="experience-grid">
+        <article class="experience-card">
+          <h3>Transformer-based emotion classification</h3>
+          <p>Implemented a transformer model for Indian English audio emotion classification and compared it against conventional models such as SVM and CNN for customer-service IVR applications.</p>
+          <div class="chips"><span class="chip">Transformers</span><span class="chip">Audio ML</span><span class="chip">Model comparison</span></div>
+        </article>
+        <article class="experience-card">
+          <h3>Early robotics and embedded systems</h3>
+          <p>Built a line-following robot with Arduino and IR sensors, then continued with small electronics and embedded projects that developed my hardware debugging instincts.</p>
+          <div class="chips"><span class="chip">Arduino</span><span class="chip">Sensors</span><span class="chip">Prototyping</span></div>
+        </article>
+        <article class="experience-card">
+          <h3>Mentoring and technical outreach</h3>
+          <p>Mentored student teams, supported machine-learning hackathon participants, and helped younger students translate robot ideas from sketches into working concepts.</p>
+          <div class="chips"><span class="chip">Mentoring</span><span class="chip">Communication</span><span class="chip">Leadership</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="resume">
+      <p class="eyebrow">Resume</p>
+      <h2>Professional one-page resume</h2>
+      <div class="resume-frame">
+        <p><strong>Placement recommendation:</strong> Place the resume immediately after the featured projects in the navigation, and include a download button in the hero section. This lets employers skim the project evidence first and then verify details in a familiar resume format.</p>
+        <p>Replace <code>Sanaka_Banerjee_Resume.pdf</code> with your actual one-page resume file. Use machine-readable headings such as:</p>
+        <ul class="resume-list">
+          <li>Education</li>
+          <li>Technical Skills</li>
+          <li>Research Experience</li>
+          <li>Projects</li>
+          <li>Publications</li>
+          <li>Leadership / Service</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="memo">
+      <p class="eyebrow">Justification memo draft</p>
+      <h2>Portfolio design memo</h2>
+      <article class="memo-card">
+        <p><strong>To:</strong> Recruitia Jobness<br /><strong>From:</strong> Sanaka Banerjee<br /><strong>Date:</strong> [Insert submission date]<br /><strong>Subject:</strong> Justification for my online engineering portfolio design</p>
+        <p>My portfolio is designed for employers hiring AI, robotics, computer vision, and applied machine learning engineers. These employers value model development, evaluation, hardware-software integration, data preprocessing, system design, and the ability to communicate technical work clearly. I therefore organized the site around projects that show both algorithmic skill and practical engineering judgment.</p>
+        <p>I chose four featured projects because they represent the strongest evidence of my target skills: vision-language model compression for robotics, affordable object detection with ESP32-CAM and YOLOv3, porosity detection in additive manufacturing, and density prediction work completed with ISRO. Each project description follows an IMRD-style structure so readers can quickly understand the problem, method, result, and my role. I also included additional experience cards for emotion classification, early robotics, and mentoring to satisfy the broader portfolio requirement while keeping the main project section focused.</p>
+        <p>The design uses a simple sticky navigation bar, short section introductions, project cards, skill chips, and clear headings so employers can skim quickly. The warm neutral color palette keeps the site professional while still reflecting my hands-on and creative personality. Images are placed beside each project to make the page more inviting, but the text remains the main source of evidence. The resume appears after the project section and is also linked from the hero so readers can access it from multiple points without searching.</p>
+        <p><strong>Portfolio link:</strong> [Insert your published website URL here]</p>
+      </article>
+    </section>
+
+    <section id="contact">
+      <p class="eyebrow">Contact</p>
+      <h2>Let’s build useful intelligent systems.</h2>
+      <p class="section-intro">Email: <a href="mailto:your.email@example.com">your.email@example.com</a> · GitHub: <a href="https://github.com/yourusername">github.com/yourusername</a> · LinkedIn: <a href="https://www.linkedin.com/in/yourusername/">linkedin.com/in/yourusername</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© 2026 Sanaka Banerjee. Built as a static engineering portfolio.</div>
+  </footer>
+</body>
+</html>
