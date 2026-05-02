@@ -134,10 +134,19 @@
       box-shadow: var(--shadow);
     }
 
-    .hero-card img, .project-image {
+    .hero-card img {
       width: 100%;
       aspect-ratio: 4 / 3;
       object-fit: cover;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: #efe7dc;
+    }
+    
+    .project-image {
+      width: 100%;
+      height: 240px;
+      object-fit: contain;
       border-radius: 22px;
       border: 1px solid var(--line);
       background: #efe7dc;
